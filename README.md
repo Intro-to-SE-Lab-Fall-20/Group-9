@@ -1,7 +1,7 @@
-# Group-9
+# Group-09
 
 ## Project Team
-Nick Hester, Jonathan Storey (jon-kane), Terryuntae Griffen, and Brett Hutto.
+Nick Hester, Jonathan Storey (jon-kane), Terryuntae Griffen, and Brett Hutto (BrettHutto).
 
 ## Description
 An email client with GUI(?) in the ______ language.
