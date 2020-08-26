@@ -1,2 +1,17 @@
 # Group-9
-Nick Hester, Jonathan Storey, Terryuntae Griffen, Brett Hutto
+
+## Project Team
+Nick Hester, Jonathan Storey (jon-kane), Terryuntae Griffen, and Brett Hutto.
+
+## Description
+An email client with GUI(?) in the ______ language.
+
+## Objectives
+To develop an email client with a number of different functionalities based on the customer (TA) expectations.
+
+## Features
+The email client will need to perform the following functionalities.
+- A user should be able to login into his account to access his emails.
+- A user should be able to compose, edit and send an email to other users.
+- A user should be able to search and forward emails to other users.
+- A user should be able to send attachments (image, files etc.) along with an email
