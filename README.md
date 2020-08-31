@@ -12,7 +12,7 @@ Terryuntae is...
 Brett is... 
 
 ## Description
-An email client with GUI(?) in the ______ language.
+An email client with GUI in the Python language.
 
 ## Objectives
 To develop an email client with a number of different functionalities based on the customer (TA) expectations.
