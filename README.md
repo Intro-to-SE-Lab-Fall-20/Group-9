@@ -3,7 +3,7 @@
 ## Project Team
 The project team has four members: Nick Hester (rojemo888), Jonathan Storey (jon-kane), Terryuntae Griffen (crankiestflame2), and Brett Hutto (BrettHutto).
 
-Nick is a senior at MSU pursuing a bachelor's degree in software engineering.
+Nick is a senior at MSU pursuing a bachelor's degree in software engineering. 
 
 Jonathan is the project lead for group 9. He is a research engineer for MSU's Institue for Systems Engineering Research (ISER) and a PhD student in the computational engineering program. His research interests include data visualization and surrogate modeling. 
 
