@@ -12,10 +12,10 @@ Terryuntae is a senior software engineering major at MSU.
 Brett is... 
 
 ## Description
-An email client with a graphical user interface using a web application framework using the Python language. The project is to be completed over the 2020 Fall semester to fulfill course lab requirements for MSU's Intro to Software Engineering. The project will follow an agile paradigm, being developed in four sprints. The project will be evaluated at the completion of each sprint by criteria specified by the TA. All project deliverables for each sprint will be stored on this GitHub repository.
+An email client with a graphical user interface using a web application framework using the Python language. The project will follow an agile paradigm, being developed in four sprints. The project will be evaluated at the completion of each sprint by criteria specified by the TA. All project deliverables for each sprint will be stored on this GitHub repository.
 
 ## Objectives
-To develop an email client with a number of different functionalities based on the customer (TA) expectations.
+The objective is to develop an email client with a number of different functionalities based on the customer (TA) expectations. The project is to be completed over the 2020 Fall semester to fulfill course lab requirements for MSU's Intro to Software Engineering. 
 
 ## Features
 The email client will perform the following functionalities.
