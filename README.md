@@ -1,7 +1,7 @@
 # Group-09
 
 ## Project Team
-The project team is composed of four members: Nick Hester (rojemo888), Jonathan Storey (jon-kane), Terryuntae Griffen (crankiestflame2), and Brett Hutto (BrettHutto).
+The project team has four members: Nick Hester (rojemo888), Jonathan Storey (jon-kane), Terryuntae Griffen (crankiestflame2), and Brett Hutto (BrettHutto).
 
 Nick is a senior at MSU pursuing a bachelor's degree in software engineering.
 
@@ -19,7 +19,7 @@ The objective is to develop an email client with a number of different functiona
 
 ## Features
 The email client will perform the following functionalities.
-- A user should be able to login into his account to access his emails.
-- A user should be able to compose, edit and send an email to other users.
-- A user should be able to search and forward emails to other users.
-- A user should be able to send attachments (image, files etc.) along with an email
+- A user will be able to login into his account to access his emails.
+- A user will be able to compose, edit and send an email to other users.
+- A user will be able to search and forward emails to other users.
+- A user will be able to send attachments (image, files etc.) along with an email
