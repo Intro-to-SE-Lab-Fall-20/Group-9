@@ -9,7 +9,7 @@ Jonathan is the project lead for group 9. He is a research engineer for MSU's In
 
 Terryuntae is a senior software engineering major at MSU.
 
-Brett is... 
+Brett is a senior Computer Science major at Mississippi State University.
 
 ## Description
 An email client with a graphical user interface using a web application framework using the Python language. The project will follow an agile paradigm, being developed in four sprints. The project will be evaluated at the completion of each sprint by criteria specified by the TA. All project deliverables for each sprint will be stored on this GitHub repository.
