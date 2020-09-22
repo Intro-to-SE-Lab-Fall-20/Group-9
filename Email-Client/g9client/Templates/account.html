@@ -1,0 +1,9 @@
+{% extends 'layout.html' %}
+{% block content %}
+  <h1>{{ current_user.email }}</h1>
+  <p>
+      This is the account page. This page is only accessible to the user once
+      they have logged in.
+  </p>
+
+{% endblock content %}
