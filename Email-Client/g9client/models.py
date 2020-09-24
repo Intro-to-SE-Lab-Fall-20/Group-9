@@ -13,17 +13,18 @@ class User(db.Model, UserMixin):
     imap_server = db.Column(db.String(60), nullable=False)
     smtp_server = db.Column(db.String(60), nullable=False)
     smtp_port = db.Column(db.Integer, nullable=False)
-    emails = db.relationship('Post', backref='author', lazy=True)
 
     def __repr__(self):
         return f"User('{self.email}', '{self.password}', '{self.imap_server}', '{self.smtp_server}', '{self.smtp_port}')"
 
-class Post(db.Model):
+class Emails(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(100), nullable=False)
-    date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
-    content = db.Column(db.Text, nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    user = db.Column(db.String(120), nullable=False)   # email of receiver
+    sender = db.Column(db.String(120), nullable=False) # email of sender
+    subject = db.Column(db.String(360), nullable=False)
+    date_received = db.Column(db.String(360), nullable=False)
+    body = db.Column(db.String())
+    body_is_html = db.Column(db.Boolean())
 
     def __repr__(self):
-        return f"Post('{self.title}', '{self.date_posted}')'"
+        return f"Email('{self.user}', '{self.sender}', '{self.subject}', '{self.date_received}')"
