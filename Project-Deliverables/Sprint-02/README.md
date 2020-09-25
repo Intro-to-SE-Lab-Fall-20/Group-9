@@ -21,6 +21,6 @@ The grading rubic for sprint-02 identified several different criteria. In this d
 * **Discussion & reviews on github items.**
   - Reviews and discussions were made on all code submitted for the email client.
 * **Continuous integration with test infrastructure ready.**
-  - Travis has been linked to the repository.
+  - Travis has been linked to the repository with a simple test being run (check if app can be launched without error).
 * **Show up to tutorials with TA.**
   - All members showed up to some/all tutorials with TA.
