@@ -1,1 +1,26 @@
-This is the readme for sprint-02. This file will list all deliverables and how they have been completed...
+The grading rubic for sprint-02 identified several different criteria. In this document, those criteria are listed (in bold) along with comments concerning the satisfaction of each criterion:
+
+* **Develop a class diagram of email client system.**
+  - INCOMPLETE.
+* **Create a sequence diagram for each user story.**
+  - INCOMPLETE.
+* **Have work completed on at least 2 of the 3 features.**
+  - As demonstrated in the demo given to the TA on Thursday, 09/24, the client currently has the capability to securely allow a user to log in & for the user to access and view their emails. The TA confirmed that this satifies this deliverable.
+* **For all user stories, have a story description, points, risk, and priority.**
+  - Every user story has a high-level description, story pionts, risk, and priority. The user stories are given in the Wiki.
+* **Have a task breakdown for every user story.**
+  - Every user story has Acceptance Criteria/Task Breakdown. The user stories are given in the Wiki.
+* **Distribute work load to team members.**
+  - All members were assigned responsibilities that were considered balanced and well distributed.
+* **Plan for next release.**
+  - Several issues have been created for sprint-03.
+* **Have frequent meetings with team.**
+  - Team met consistently over sprint-02. Meetings are documented in the Wiki.
+* **Commit logs are desciptive & everything referenced.**
+  - All commit logs were descriptive & many referenced pertinent issues.
+* **Discussion & reviews on github items.**
+  - Reviews and discussions were made on all code submitted for the email client.
+* **Continuous integration with test infrastructure ready.**
+  - Travis has been linked to the repository.
+* **Show up to tutorials with TA.**
+  - All members showed up to some/all tutorials with TA.
