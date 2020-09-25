@@ -1,0 +1,8 @@
+# Should probably add specific version for each module
+
+flask
+flask_sqlalchemy
+flask_bcrypt
+flask_login
+flask_wtf
+wtforms
