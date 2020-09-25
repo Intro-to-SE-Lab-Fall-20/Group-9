@@ -1,9 +1,9 @@
 The grading rubic for sprint-02 identified several different criteria. In this document, those criteria are listed (in bold) along with comments concerning the satisfaction of each criterion:
 
 * **Develop a class diagram of email client system.**
-  - INCOMPLETE.
+  - A class diagram has been created of the email client system. The diagram is included in this directory as well as being uploaded to canvas.
 * **Create a sequence diagram for each user story.**
-  - A sequence diagram has been created for each user story. All sequence diagrams are included in this directory as well as being uploaded to canvas
+  - A sequence diagram has been created for each user story. All sequence diagrams are included in this directory as well as being uploaded to canvas.
 * **Have work completed on at least 2 of the 3 features.**
   - As demonstrated in the demo given to the TA on Thursday, 09/24, the client currently has the capability to securely allow a user to log in & for the user to access and view their emails. The TA confirmed that this satifies this deliverable.
 * **For all user stories, have a story description, points, risk, and priority.**
