@@ -52,11 +52,11 @@ def logout():
 @login_required
 def account():
     sync = SyncMailForm()
-    emails = Emails.query.filter_by(user=current_user.email).all()
+    #emails = Emails.query.filter_by(user=current_user.email).all()
     #paginate account page to give user more control of movement between many emails -> paginate(page=page, per_page=5)
     #sort in descending order to view newest emails first -> order_by(Email.date_recieved.desc())
-    #page = request.args.get('page', 1, type=int)
-    #emails = Emails.query.filter_by(user=current_user.email).order_by(Emails.date_received.desc()).paginate(page=page, per_page=5)
+    page = request.args.get('page', 1, type=int)
+    emails = Emails.query.filter_by(user=current_user.email).order_by(Emails.date_received.desc()).paginate(page=page, per_page=5)
 
     if sync.validate_on_submit(): # Sync new emails
         syncMail(current_user.email, current_user.password , current_user.imap_server)
