@@ -2,7 +2,7 @@
 {% block content %}
     <h1 class="mb-3">Results for "{{ results }}"</h1>
     {% for email in emails.items %}
-        {% if results == email.subject or results == email.sender or results == email.date_recieved or results == email.body %}
+        {% if results == email.subject or results == email.sender or results == email.date_received or results == email.body %}
             <article class="media content-section">
                 <div class="media-body">
                 <div class="article-metadata">

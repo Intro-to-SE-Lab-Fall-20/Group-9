@@ -55,7 +55,7 @@ def account():
     #paginate account page to give user more control of movement between many emails -> paginate(page=page, per_page=5)
     #sort in descending order to view newest emails first -> order_by(Email.date_recieved.desc())
     page = request.args.get('page', 1, type=int)
-    emails = Emails.query.filter_by(user=current_user.email).order_by(Email.date_recieved.desc()).paginate(page=page, per_page=5)
+    emails = Emails.query.filter_by(user=current_user.email).order_by(Emails.date_received.desc()).paginate(page=page, per_page=5)
 
     if sync.validate_on_submit(): # Sync new emails
         syncMail(current_user.email, current_user.password , current_user.imap_server)
@@ -101,7 +101,7 @@ def search_results(search):
     if count > 0:
         #display results on full page (this can be changed to have certain amount on pages with "per_page=#")
         page = request.args.get('page', 1, type=int)
-        emails = Email.query.order_by(Email.date_recieved.desc()).paginate(page=page)
+        emails = Emails.query.order_by(Emails.date_received.desc()).paginate(page=page)
         return render_template('results.html', emails=emails, results=results)
     else:
         flash('No results found!', 'danger')
