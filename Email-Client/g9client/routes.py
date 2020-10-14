@@ -93,11 +93,17 @@ def search():
 @app.route('/results')
 def search_results(search):
     results = search.data['search']
-    if not results:
-        flash('No results found!', 'danger')
-        return redirect('/search')
-    else:
+    emails = Emails.query.filter_by(user=current_user.email).all()
+    count = 0
+    for email in emails:
+        if results == email.subject or results == email.sender or results == email.date_recieved or results == email.body:
+            count = count + 1
+    if count > 0:
         #display results on full page (this can be changed to have certain amount on pages with "per_page=#")
         page = request.args.get('page', 1, type=int)
         emails = Email.query.order_by(Email.date_recieved.desc()).paginate(page=page)
         return render_template('results.html', emails=emails, results=results)
+    else:
+        flash('No results found!', 'danger')
+        return redirect('/search')
+        
