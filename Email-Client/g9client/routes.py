@@ -1,6 +1,6 @@
 from flask import render_template, url_for, flash, redirect, request
 from g9client import app, db, bcrypt
-from g9client.forms import RegistrationForm, LoginForm, SyncMailForm, EmailForm
+from g9client.forms import RegistrationForm, LoginForm, SyncMailForm, EmailForm, SearchForm
 from g9client.models import User, Emails
 from g9client.functions import syncMail
 from flask_login import login_user, current_user, logout_user, login_required
@@ -52,7 +52,11 @@ def logout():
 @login_required
 def account():
     sync = SyncMailForm()
-    emails = Emails.query.filter_by(user=current_user.email).all()
+    #emails = Emails.query.filter_by(user=current_user.email).all()
+    #paginate account page to give user more control of movement between many emails -> paginate(page=page, per_page=5)
+    #sort in descending order to view newest emails first -> order_by(Email.date_recieved.desc())
+    page = request.args.get('page', 1, type=int)
+    emails = Emails.query.filter_by(user=current_user.email).order_by(Emails.date_received.desc()).paginate(page=page, per_page=5)
 
     if sync.validate_on_submit(): # Sync new emails
         syncMail(current_user.email, current_user.password , current_user.imap_server)
@@ -78,3 +82,29 @@ def new_email():
     #     flash('Your email has been created!', 'success')
     #     return redirect(url_for('home'))
     return render_template('create-email.html', title='Compose Message', form=form, legend='Compose Message')
+
+#route for search functionality
+@app.route('/search', methods=['GET', 'POST'])
+def search():
+    search = SearchForm(request.form)
+    if request.method == 'POST':
+        return search_results(search)
+    return render_template('search.html', form=search)
+#route for results from search
+@app.route('/results')
+def search_results(search):
+    results = search.data['search']
+    emails = Emails.query.filter_by(user=current_user.email).all()
+    count = 0
+    for email in emails:
+        if results == email.subject or results == email.sender or results == email.date_recieved or results == email.body:
+            count = count + 1
+    if count > 0:
+        #display results on full page (this can be changed to have certain amount on pages with "per_page=#")
+        page = request.args.get('page', 1, type=int)
+        emails = Emails.query.order_by(Emails.date_received.desc()).paginate(page=page)
+        return render_template('results.html', emails=emails, results=results)
+    else:
+        flash('No results found!', 'danger')
+        return redirect('/search')
+        

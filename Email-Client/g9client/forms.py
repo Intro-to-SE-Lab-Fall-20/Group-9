@@ -33,3 +33,7 @@ class EmailForm(FlaskForm):
     subject = StringField('Subject', validators=[DataRequired()])
     content = TextAreaField('Content', validators=[DataRequired()])
     submit = SubmitField('Send')
+
+class SearchForm(FlaskForm):
+    search = StringField('', validators=[DataRequired()])
+    submit = SubmitField('Search')
