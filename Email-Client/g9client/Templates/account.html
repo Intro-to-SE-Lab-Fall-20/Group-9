@@ -11,29 +11,31 @@
     </form>
   </div>
 
-  {% for email in emails %}
+  {% for email in emails.items %}
   <article class="media content-section">
       <div class="media-body">
         <div class="article-metadata">
           <a>From: {{ email.sender }}</a>
           <small class="text-muted">{{ email.date_received }}</small>
         </div>
-        <h3><a  class="article-title" href="{{ url_for('read_email', email_id=email.id) }}">Subject: {{ email.subject }}</a></h2>
+        <h3><a  class="ml-2" href="{{ url_for('read_email', email_id=email.id) }}">Subject: {{ email.subject }}</a></h2>
+        <div class="border-top pt-3">
+          <a  class="ml-2" href="{{ url_for('forward_email', email_id=email.id) }}">Forward</a></a>
+        </div>
       </div>
   </article>
   {% endfor %}
 
-
-{% for page_num in emails.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
-  {% if page_num %}
-    {% if emails.page == page_num %}
-      <a class="btn btn-info mb-4" href="{{ url_for('account', page=page_num) }}">{{ page_num }}</a>
+  {% for page_num in emails.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+    {% if page_num %}
+      {% if emails.page == page_num %}
+        <a class="btn btn-info mb-4" href="{{ url_for('account', page=page_num) }}">{{ page_num }}</a>
+      {% else %}
+        <a class="btn btn-outline-info mb-4" href="{{ url_for('account', page=page_num) }}">{{ page_num }}</a>
+      {% endif %}
     {% else %}
-      <a class="btn btn-outline-info mb-4" href="{{ url_for('account', page=page_num) }}">{{ page_num }}</a>
+      ...
     {% endif %}
-  {% else %}
-    ...
-  {% endif %}
-{% endfor %}
+  {% endfor %}
 
-{% endblock content %}
+  {% endblock content %}

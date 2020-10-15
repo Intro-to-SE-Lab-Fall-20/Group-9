@@ -1,11 +1,19 @@
 {% extends "layout.html" %}
 {% block content %}
+<div>
+  <a  class="ml-2" href="{{ url_for('forward_email', email_id=email.id) }}">Forward</a></a>
+</div>
+<div class="border-top pt-3">
+</div>
 <article class="media content-section">
     <div class="media-body">
-        <div class="article-metadata">
-        <a>{{ email.sender }}</a>
+        <div>
+        <a>From: {{ email.sender }}</a>
         <small class="text-muted">{{ email.date_received }}</small>
-        </div>
+    </div>
+</article>
+<article class="media content-section">
+    <div class="media-body">
         <h2 class="article-title">{{ email.subject }}</h2>
         {% if email.body_is_html %}
           {{ email.body|safe}}

@@ -36,4 +36,10 @@ class EmailForm(FlaskForm):
 
 class SearchForm(FlaskForm):
     search = StringField('', validators=[DataRequired()])
-    submit = SubmitField('Search')
+    submit = SubmitField('Search') 
+
+class ForwardForm(FlaskForm):
+    to = StringField('To', validators=[DataRequired()])
+    subject = StringField('Subject', validators=[DataRequired()])
+    added_content = TextAreaField('Additional Content', validators=[DataRequired()])
+    submit = SubmitField('Send')
