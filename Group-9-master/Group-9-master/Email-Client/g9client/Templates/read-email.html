@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+{% block content %}
+<article class="media content-section">
+    <div class="media-body">
+        <div class="article-metadata">
+        <a>{{ email.sender }}</a>
+        <small class="text-muted">{{ email.date_received }}</small>
+        </div>
+        <h2 class="article-title">{{ email.subject }}</h2>
+        {% if email.body_is_html %}
+          {{ email.body|safe}}
+        {% else %}
+          <p class="article-content">{{ email.body }}</p>
+        {% endif %}
+    </div>
+</article>
+<div class="border-top pt-3">
+  <small class="text-muted">
+    <a class="ml-2" href="{{ url_for('account') }}"> Back to Account</a>
+  </small>
+</div>
+{% endblock %}
