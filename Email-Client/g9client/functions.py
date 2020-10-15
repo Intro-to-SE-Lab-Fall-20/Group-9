@@ -1,11 +1,17 @@
 import imaplib
+import smtplib
+import ssl
 import email as EMAIL
 from email.header import decode_header
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
 import webbrowser
 import os
 from g9client import db
 from g9client.models import Emails
 
+# Syncs all (new) mail and adds to database for current user
+# DOES NOT GRAB ATTACHEMENTS
 def syncMail(username, password, imap_server):
      # username = current_user.email
      # password = current_user.password # can't use hashed password - need encryption for security
@@ -27,7 +33,7 @@ def syncMail(username, password, imap_server):
                  # parse a bytes email into a message object
                  msg = EMAIL.message_from_bytes(response[1])
                  # decode the email subject
-                 subject = decode_header(msg["Subject"])[0][0]
+                 subject = msg.get("Subject")
                  if isinstance(subject, bytes):
                      # if it's a bytes, decode to str
                      subject = subject.decode()
@@ -75,3 +81,15 @@ def syncMail(username, password, imap_server):
 
      imap.close()
      imap.logout()
+
+# def formatForwardMessage(added_content, email_object):
+    # Need to combine added_content & email_data in a sensible fassion
+
+# Forward an email
+def forwardMessage(username, password, smtp_server, smtp_port, to_address, content):
+    context = ssl.create_default_context()
+
+    with smtplib.SMTP_SSL(smtp_server, smtp_port, context=context) as server:
+        server.login(username, password)
+        server.sendmail(username, to_address, content)
+        server.quit()

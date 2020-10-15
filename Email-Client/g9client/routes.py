@@ -1,8 +1,8 @@
 from flask import render_template, url_for, flash, redirect, request
 from g9client import app, db, bcrypt
-from g9client.forms import RegistrationForm, LoginForm, SyncMailForm, EmailForm, SearchForm
+from g9client.forms import RegistrationForm, LoginForm, SyncMailForm, EmailForm, SearchForm, ForwardForm
 from g9client.models import User, Emails
-from g9client.functions import syncMail
+from g9client.functions import syncMail, forwardMessage
 from flask_login import login_user, current_user, logout_user, login_required
 import os
 
@@ -65,11 +65,31 @@ def account():
 
     return render_template('account.html', title='Account', sync = sync, emails = emails, new_email = new_email)
 
-@app.route('/post/<int:email_id>')
+@app.route('/email/read/<int:email_id>')
 @login_required
 def read_email(email_id):
     email = Emails.query.get_or_404(email_id)
     return render_template('read-email.html', title=email.subject, email=email)
+
+@app.route('/email/forward/<int:email_id>', methods=['GET', 'POST'])
+@login_required
+def forward_email(email_id):
+    form = ForwardForm()
+    email = Emails.query.get_or_404(email_id)
+    if form.validate_on_submit(): # forward the email to recipient
+        forwardMessage(
+            username=current_user.email,
+            password=current_user.password,
+            smtp_server=current_user.smtp_server,
+            smtp_port=current_user.smtp_port,
+            to_address=form.to.data,
+            content=email.body
+            )
+
+        flash(f'Message sent!', 'success')
+        return redirect(url_for('account'))
+
+    return render_template('forward-email.html', title=email.subject, email=email, form=form)
 
 @app.route('/email/new', methods=['GET', 'POST'])
 @login_required
@@ -97,7 +117,7 @@ def search_results(search):
     emails = Emails.query.filter_by(user=current_user.email).all()
     count = 0
     for email in emails:
-        if results == email.subject or results == email.sender or results == email.date_recieved or results == email.body:
+        if results == email.subject or results == email.sender or results == email.date_received or results == email.body:
             count = count + 1
     if count > 0:
         #display results on full page (this can be changed to have certain amount on pages with "per_page=#")
@@ -107,4 +127,3 @@ def search_results(search):
     else:
         flash('No results found!', 'danger')
         return redirect('/search')
-        
