@@ -4,6 +4,14 @@ from g9client.forms import RegistrationForm, LoginForm, SyncMailForm, EmailForm,
 from g9client.models import User, Emails
 from g9client.functions import syncMail, forwardMessage
 from flask_login import login_user, current_user, logout_user, login_required
+from flask_mail import Mail, Message
+import smtplib
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+from email.mime.image import MIMEImage
+from email.mime.application import MIMEApplication
+import ssl
+
 import os
 
 @app.route('/', methods=["GET", "POST"])
@@ -91,16 +99,50 @@ def forward_email(email_id):
 
     return render_template('forward-email.html', title=email.subject, email=email, form=form)
 
+# Route for constructing a new email
 @app.route('/email/new', methods=['GET', 'POST'])
 @login_required
 def new_email():
     form = EmailForm()
-    # if form.validate_on_submit():
-    #     post = Post(title=form.title.data, content=form.content.data, author=current_user)
-    #     db.session.add(post)
-    #     db.session.commit()
-    #     flash('Your email has been created!', 'success')
-    #     return redirect(url_for('home'))
+    if form.validate_on_submit():
+        sender = current_user.email
+        receivers = [form.to.data]
+        message = form.content.data
+
+        msg = MIMEMultipart()
+        msg['Subject'] = form.subject.data
+        msg['From'] = current_user.email
+        msg['To'] = form.to.data
+
+        msgText = MIMEText('<p>%s</p>' % (message), 'html')
+        msg.attach(msgText)
+
+        # ISSUE WITH GETTING FILE; ONLY RETURNS FILE NAME NOT FULL PATH
+        # if form.attachment.data != '':
+        #     filename = form.attachment.data
+        #     file = MIMEApplication(open(filename, 'rb').read())
+        #     file.add_header('Content-Disposition', 'attachment', form.attachment.data)
+        #     msg.attach(file)
+
+        # Create an SSL connection; issue with tls
+        context = ssl.create_default_context()
+
+        with smtplib.SMTP_SSL(current_user.smtp_server, current_user.smtp_port, context=context) as server:
+            server.login(current_user.email, current_user.password)
+            server.sendmail(sender, receivers, msg.as_string())
+            server.quit()
+
+        # smtpObj = SMTP(host=current_user.smtp_server, port=current_user.smtp_port)
+        # smtpObj.starttls()
+        # smtpObj.login(current_user.email, current_user.password)
+        # smtpObj.sendmail(sender, receivers, msg.as_string())
+        #
+        #
+        # smtpObj.quit()
+
+
+        flash('Your email has been sent!', 'success')
+        return redirect(url_for('account'))
     return render_template('create-email.html', title='Compose Message', form=form, legend='Compose Message')
 
 #route for search functionality
@@ -110,6 +152,7 @@ def search():
     if request.method == 'POST':
         return search_results(search)
     return render_template('search.html', form=search)
+
 #route for results from search
 @app.route('/results')
 def search_results(search):

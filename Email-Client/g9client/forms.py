@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, BooleanField, IntegerField, TextAreaField
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, IntegerField, TextAreaField, FileField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 from g9client.models import User
 import os
@@ -32,11 +32,12 @@ class EmailForm(FlaskForm):
     to = StringField('To', validators=[DataRequired()])
     subject = StringField('Subject', validators=[DataRequired()])
     content = TextAreaField('Content', validators=[DataRequired()])
+    attachment = FileField('Upload File')
     submit = SubmitField('Send')
 
 class SearchForm(FlaskForm):
     search = StringField('', validators=[DataRequired()])
-    submit = SubmitField('Search') 
+    submit = SubmitField('Search')
 
 class ForwardForm(FlaskForm):
     to = StringField('To', validators=[DataRequired()])
