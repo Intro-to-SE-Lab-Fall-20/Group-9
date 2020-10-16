@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, BooleanField, IntegerField, TextAreaField, FileField
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, IntegerField, TextAreaField, FileField, SelectField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 from g9client.models import User
 import os
@@ -10,6 +10,7 @@ class RegistrationForm(FlaskForm):
     imap_server = StringField('IMAP Server', validators=[DataRequired()])
     smtp_server = StringField('SMTP Server', validators=[DataRequired()])
     smtp_port = IntegerField('SMTP Port', validators=[DataRequired()])
+    sec_prot = SelectField("Security Protocol", choices = ['ssl', 'tls'], validators=[DataRequired()])
 
     submit = SubmitField('Register Account')
 
