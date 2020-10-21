@@ -31,20 +31,23 @@
                     {{ form.subject(class="form-control form-control-lg") }}
                 {% endif %}
             </div>
-            <div class="form-group">
-                {{ form.content.label(class="form-control-label") }}
-                {% if form.content.errors %}
-                    {{ form.content(class="form-control form-control-lg is-invalid") }}
+            <form method="post">
+              <textarea id="summernote" name="editordata"></textarea>
+            </form>
+      			<div class="form-group">
+              {{ form.attachment.label(class="form-control-label") }}
+                {% if form.attachment.errors %}
+                  {{ form.attachment(class="form-control form-control-lg is-invalid") }}
                     <div class="invalid-feedback">
-                        {% for error in form.content.errors %}
+                      {% for error in form.attachment.errors %}
                         <span>{{ error }}</span>
-                        {% endfor %}
+                      {% endfor %}
                     </div>
-                {% else %}
-                    {{ form.content(class="form-control form-control-lg") }}
-                {% endif %}
+                  {% else %}
+                    {{ form.attachment(class="form-control form-control-lg") }}
+                  {% endif %}
             </div>
-        </fieldset>
+            </fieldset>
         <div class="form-group">
             {{ form.submit(class="btn btn-outline-info") }}
         </div>

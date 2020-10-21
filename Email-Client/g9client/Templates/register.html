@@ -70,6 +70,19 @@
             {{ form.smtp_port(class="form-control form-control-lg") }}
           {% endif %}
         </div>
+        <div class="form-group">
+          {{ form.sec_prot.label(class="form-control-label") }}
+          {% if form.sec_prot.errors %}
+            {{ form.sec_prot(class="form-control form-control-lg is-invalid") }}
+            <div class="invalid-feedback">
+              {% for error in form.sec_prot.errors %}
+                <span>{{ error }}</span>
+              {% endfor %}
+            </div>
+          {% else %}
+            {{ form.sec_prot(class="form-control form-control-lg") }}
+          {% endif %}
+        </div>
       </fieldset>
       <div class="form-group">
         {{ form.submit(class="btn btn-outline-info") }}
