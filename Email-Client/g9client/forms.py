@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, BooleanField, IntegerField, TextAreaField
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, IntegerField, TextAreaField, FileField, SelectField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 from g9client.models import User
 import os
@@ -10,6 +10,7 @@ class RegistrationForm(FlaskForm):
     imap_server = StringField('IMAP Server', validators=[DataRequired()])
     smtp_server = StringField('SMTP Server', validators=[DataRequired()])
     smtp_port = IntegerField('SMTP Port', validators=[DataRequired()])
+    sec_prot = SelectField("Security Protocol", choices = ['ssl', 'tls'], validators=[DataRequired()])
 
     submit = SubmitField('Register Account')
 
@@ -32,11 +33,12 @@ class EmailForm(FlaskForm):
     to = StringField('To', validators=[DataRequired()])
     subject = StringField('Subject', validators=[DataRequired()])
     content = TextAreaField('Content', validators=[DataRequired()])
+    attachment = FileField('Upload File')
     submit = SubmitField('Send')
 
 class SearchForm(FlaskForm):
     search = StringField('', validators=[DataRequired()])
-    submit = SubmitField('Search') 
+    submit = SubmitField('Search')
 
 class ForwardForm(FlaskForm):
     to = StringField('To', validators=[DataRequired()])
