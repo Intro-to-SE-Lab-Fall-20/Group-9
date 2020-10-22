@@ -4,11 +4,14 @@ from g9client.forms import RegistrationForm, LoginForm, SyncMailForm, EmailForm,
 from g9client.models import User, Emails
 from g9client.functions import syncMail, sendMessage
 from flask_login import login_user, current_user, logout_user, login_required
+from flask_mail import Mail, Message
+import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from email.mime.image import MIMEImage
 from email.mime.application import MIMEApplication
 from werkzeug.utils import secure_filename
+import ssl
 import os
 
 @app.route('/', methods=["GET", "POST"])
@@ -134,14 +137,14 @@ def new_email():
 
             file = form.attachment.data
             filename = secure_filename(file.filename)
-            
+
             filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
             file.save(filepath)
-            
+
             file_attach = MIMEApplication(open(filepath, 'rb').read())
             file_attach.add_header('Content-Disposition', 'attachment', filename=file.filename)
             msg.attach(file_attach)
-            
+
             os.remove(filepath)
 
         sendMessage(
