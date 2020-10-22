@@ -85,14 +85,14 @@ def read_email(email_id):
 def forward_email(email_id):
     form = ForwardForm()
     email = Emails.query.get_or_404(email_id)
-    if form.validate_on_submit(): # forward the email to recipient
+    if request.method == 'POST': # forward the email to recipient
 
         msg = MIMEMultipart()
         msg['Subject'] = form.subject.data
         msg['From'] = current_user.email
         msg['To'] = form.to.data
 
-        added_part = MIMEText(form.added_content.data, "html")
+        added_part = MIMEText(request.form.get('editordata'), "html")
 
         if email.body_is_html:
             forward_part = MIMEText(email.body, "html")
@@ -120,7 +120,8 @@ def forward_email(email_id):
 @login_required
 def new_email():
     form = EmailForm()
-    if form.validate_on_submit():
+    # if form.validate_on_submit():
+    if request.method == 'POST':
 
         msg = MIMEMultipart()
         msg['Subject'] = form.subject.data
@@ -128,7 +129,9 @@ def new_email():
         msg['To'] = form.to.data
 
         # Format message for email
-        content = MIMEText('<p>%s</p>' % (form.content.data), 'html')
+        # content = MIMEText('<p>%s</p>' % (form.content.data), 'html')
+
+        content = MIMEText(request.form.get('editordata'), 'html')
 
         msg.attach(content)
 

@@ -32,9 +32,7 @@ class SyncMailForm(FlaskForm):
 class EmailForm(FlaskForm):
     to = StringField('To', validators=[DataRequired()])
     subject = StringField('Subject', validators=[DataRequired()])
-    content = TextAreaField('Content', validators=[DataRequired()])
     attachment = FileField('Upload File')
-    submit = SubmitField('Send')
 
 class SearchForm(FlaskForm):
     search = StringField('', validators=[DataRequired()])
@@ -44,4 +42,3 @@ class ForwardForm(FlaskForm):
     to = StringField('To', validators=[DataRequired()])
     subject = StringField('Subject', validators=[DataRequired()])
     added_content = TextAreaField('Additional Content', validators=[DataRequired()])
-    submit = SubmitField('Send')
