@@ -1,4 +1,4 @@
-# Group-09
+# Group-09 [![Build Status](https://travis-ci.com/Intro-to-SE-Lab-Fall-20/Group-9.svg?branch=master)](https://travis-ci.com/Intro-to-SE-Lab-Fall-20/Group-9)
 
 ## Project Team
 The project team has four members: Nick Hester (rojemo888), Jonathan Storey (jon-kane), Terryuntae Griffen (crankiestflame2), and Brett Hutto (BrettHutto).
