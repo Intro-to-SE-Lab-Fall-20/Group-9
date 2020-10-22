@@ -10,8 +10,8 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from email.mime.image import MIMEImage
 from email.mime.application import MIMEApplication
+from werkzeug.utils import secure_filename
 import ssl
-
 import os
 
 @app.route('/', methods=["GET", "POST"])
@@ -132,6 +132,21 @@ def new_email():
 
         msg.attach(content)
 
+        # if there's an attachment, attach the file
+        if form.attachment.data != '':
+
+            file = form.attachment.data
+            filename = secure_filename(file.filename)
+
+            filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+            file.save(filepath)
+
+            file_attach = MIMEApplication(open(filepath, 'rb').read())
+            file_attach.add_header('Content-Disposition', 'attachment', filename=file.filename)
+            msg.attach(file_attach)
+
+            os.remove(filepath)
+
         sendMessage(
             password = current_user.password,
             smtp_server = current_user.smtp_server,
@@ -139,42 +154,6 @@ def new_email():
             msg = msg,
             type = current_user.sec_prot
         )
-
-        # sender = current_user.email
-        # receivers = [form.to.data]
-        # message = form.content.data
-        #
-        # msg = MIMEMultipart()
-        # msg['Subject'] = form.subject.data
-        # msg['From'] = current_user.email
-        # msg['To'] = form.to.data
-        #
-        # msgText = MIMEText('<p>%s</p>' % (message), 'html')
-        # msg.attach(msgText)
-
-        # ISSUE WITH GETTING FILE; ONLY RETURNS FILE NAME NOT FULL PATH
-        # if form.attachment.data != '':
-        #     filename = form.attachment.data
-        #     file = MIMEApplication(open(filename, 'rb').read())
-        #     file.add_header('Content-Disposition', 'attachment', form.attachment.data)
-        #     msg.attach(file)
-
-        # Create an SSL connection; issue with tls
-        # context = ssl.create_default_context()
-        #
-        # with smtplib.SMTP_SSL(current_user.smtp_server, current_user.smtp_port, context=context) as server:
-        #     server.login(current_user.email, current_user.password)
-        #     server.sendmail(sender, receivers, msg.as_string())
-        #     server.quit()
-
-        # smtpObj = SMTP(host=current_user.smtp_server, port=current_user.smtp_port)
-        # smtpObj.starttls()
-        # smtpObj.login(current_user.email, current_user.password)
-        # smtpObj.sendmail(sender, receivers, msg.as_string())
-        #
-        #
-        # smtpObj.quit()
-
 
         flash('Your email has been sent!', 'success')
         return redirect(url_for('account'))
