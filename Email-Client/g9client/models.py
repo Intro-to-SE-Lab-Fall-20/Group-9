@@ -20,11 +20,11 @@ class User(db.Model, UserMixin):
 
 class Emails(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    user = db.Column(db.String(120), nullable=False)   # email of receiver
-    sender = db.Column(db.String(120), nullable=False) # email of sender
-    subject = db.Column(db.String(360), nullable=True)
-    date_received = db.Column(db.String(360), nullable=False)
-    body = db.Column(db.String())
+    user = db.Column(db.Text, nullable=False)   # email of receiver
+    sender = db.Column(db.Text, nullable=False) # email of sender
+    subject = db.Column(db.Text, nullable=True)
+    date_received = db.Column(db.Text, nullable=False)
+    body = db.Column(db.Text)
     body_is_html = db.Column(db.Boolean())
 
     def __repr__(self):

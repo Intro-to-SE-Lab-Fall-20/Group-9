@@ -31,23 +31,11 @@
                     {{ form.subject(class="form-control form-control-lg") }}
                 {% endif %}
             </div>
-            <div class="form-group">
-                {{ form.added_content.label(class="form-control-label") }}
-                {% if form.added_content.errors %}
-                    {{ form.added_content(class="form-control form-control-lg is-invalid") }}
-                    <div class="invalid-feedback">
-                        {% for error in form.content.errors %}
-                        <span>{{ error }}</span>
-                        {% endfor %}
-                    </div>
-                {% else %}
-                    {{ form.added_content(class="form-control form-control-lg") }}
-                {% endif %}
-            </div>
+            <form method="post">
+              <textarea id="summernote" name="editordata"></textarea>
+              <input type="submit" value="Send">
+            </form>
         </fieldset>
-        <div class="form-group">
-            {{ form.submit(class="btn btn-outline-info") }}
-        </div>
     </form>
 </div>
 <article class="media content-section">
