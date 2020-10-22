@@ -53,15 +53,17 @@ def syncMail(username, password, imap_server):
                              content_disposition = str(part.get("Content-Disposition"))
                              try:
                                  # get the email body
-                                 body = part.get_payload(decode=True).decode()
+                                 body = part.get_payload(decode=True).decode('utf-8')
                              except:
                                  pass
                      else:
                          # extract content type of email
                          content_type = msg.get_content_type()
                          # get the email body
-                         body = msg.get_payload(decode=True).decode()
-
+                         try:
+                             body = msg.get_payload(decode=True).decode('utf-8')
+                         except: # unicode error; how to handle?
+                             body = "couldn't retrieve text"
                      if content_type == "text/html":
                          body_is_html = True
                      else:
@@ -82,14 +84,19 @@ def syncMail(username, password, imap_server):
      imap.close()
      imap.logout()
 
-# def formatForwardMessage(added_content, email_object):
-    # Need to combine added_content & email_data in a sensible fassion
+# type refers to ssl or tls
+def sendMessage(password, smtp_server, smtp_port, msg, type):
 
-# Forward an email
-def forwardMessage(username, password, smtp_server, smtp_port, to_address, content):
-    context = ssl.create_default_context()
+    if type == "ssl":
+        context = ssl.create_default_context()
 
-    with smtplib.SMTP_SSL(smtp_server, smtp_port, context=context) as server:
-        server.login(username, password)
-        server.sendmail(username, to_address, content)
-        server.quit()
+        with smtplib.SMTP_SSL(smtp_server, smtp_port, context=context) as server:
+            server.login(msg['From'], password)
+            server.sendmail(msg['From'], msg['To'], msg.as_string().encode('utf-8').strip())
+            server.quit()
+    else: # type is tls
+        with smtplib.SMTP(smtp_server, smtp_port) as server:
+            server.starttls()
+            server.login(msg['From'], password)
+            server.sendmail(msg['From'], msg['To'], msg.as_string().encode('utf-8').strip())
+            server.quit()
