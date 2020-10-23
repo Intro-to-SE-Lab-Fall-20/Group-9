@@ -8,6 +8,7 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = '3aa2d13bfb8f6e6f8abbede0569bbf33'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
 app.config['UPLOAD_FOLDER'] = os.getcwd()
+app.config['ATTACHMENT_FOLDER'] = os.path.join(os.getcwd(), "g9client", "Attachments")
 db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
 login_manager = LoginManager(app)
