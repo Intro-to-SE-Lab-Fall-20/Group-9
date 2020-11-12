@@ -14,9 +14,16 @@ import ssl
 from werkzeug.utils import secure_filename
 import ssl
 import os
+from flask_limiter import Limiter
+from flask_limiter.util import get_remote_address
+
+limiter = Limiter(app, key_func=get_remote_address)
+def error_handler():
+    return app.config.get("DEFAULT_ERROR_MESSAGE")
 
 @app.route('/', methods=["GET", "POST"])
 @app.route('/login', methods=["GET", "POST"])
+@limiter.limit('3 per minute', error_message='3 Login Attempts per minute. Please try again later')
 def login():
     if current_user.is_authenticated:
         return redirect(url_for('account'))
