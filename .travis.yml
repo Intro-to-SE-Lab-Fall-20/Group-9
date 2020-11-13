@@ -2,4 +2,11 @@ language: python
 python: "3.6"   
 before_install: pip install -U pytest
 install: pip install -r requirements.txt
-script: python -m py_compile Email-Client/run.py
+script: 
+  - python -m py_compile Email-Client/run.py
+  - python Test-Scripts/simple-example.py
+env:
+  global:
+    - MOZ_HEADLESS=1
+addons:
+  firefox: latest
