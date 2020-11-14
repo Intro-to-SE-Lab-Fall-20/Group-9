@@ -9,4 +9,3 @@ wtforms
 email_validator
 flask_limiter
 selenium
-multiprocessing
