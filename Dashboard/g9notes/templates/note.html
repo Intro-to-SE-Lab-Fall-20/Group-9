@@ -1,0 +1,26 @@
+<li class="note col-xs-12 col-sm-6 col-lg-4">
+  <div class="panel panel-{% if note.reminder %}warning{% else %}primary{% endif %}">
+    <div class="panel-heading">
+      <a class="btn btn-danger btn-xs delete-note pull-right" data-note="{{ note.id }}" href="/api/note/{{ note.id }}/">&times;</a>
+      <a class="btn btn-info btn-xs archive-note pull-right" data-note="{{ note.id }}" href="/api/note/{{ note.id }}/">a</a>
+      {{ note.timestamp.strftime('%b %d, %Y - %I:%M%p').lower() }}
+    </div>
+    <div class="panel-body">
+      {{ note.html() }}
+      {% for task in note.get_tasks() %}
+        <div class="checkbox">
+          <label>
+            <input id="task-{{ task.id }}" {% if task.finished %}checked="checked" {% endif %}name="task" type="checkbox" value="{{ task.id }}">
+            {{ task.html() }}
+          </label>
+        </div>
+      {% endfor %}
+    </div>
+    {% if note.reminder %}
+      <div class="panel-footer">
+        <span class="glyphicon glyphicon-time"></span>
+        {{ note.reminder.strftime('%m/%d/%Y %I:%M%p') }}
+      </div>
+    {% endif %}
+  </div>
+</li>

@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+{% block content %}
+    <h1 class="mb-3">Results for "{{ results }}"</h1>
+    {% for email in emails.items %}
+        {% if results == email.subject or results == email.sender or results == email.date_received or results == email.body %}
+            <article class="media content-section">
+                <div class="media-body">
+                <div class="article-metadata">
+                    <a>From: {{ email.sender }}</a>
+                    <small class="text-muted">{{ email.date_received }}</small>
+                </div>
+                <h3><a  class="article-title" href="{{ url_for('read_email', email_id=email.id) }}">Subject: {{ email.subject }}</a></h2>
+                </div>
+            </article>
+        {% endif %}
+    {% endfor %}
+{% endblock %}

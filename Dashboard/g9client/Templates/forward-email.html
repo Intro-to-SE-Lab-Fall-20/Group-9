@@ -1,0 +1,59 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="content-section">
+    <form method="POST" action="">
+        {{ form.hidden_tag() }}
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4"> Forward Email </legend>
+            <div class="form-group">
+                {{ form.to.label(class="form-control-label") }}
+                {% if form.to.errors %}
+                    {{ form.to(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.to.errors %}
+                        <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.to(class="form-control form-control-lg") }}
+                {% endif %}
+            </div>
+            <div class="form-group">
+                {{ form.subject.label(class="form-control-label") }}
+                {% if form.subject.errors %}
+                    {{ form.subject(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.subject.errors %}
+                        <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.subject(class="form-control form-control-lg") }}
+                {% endif %}
+            </div>
+            <form method="post">
+              <textarea id="summernote" name="editordata"></textarea>
+              <input type="submit" value="Send">
+            </form>
+        </fieldset>
+    </form>
+</div>
+<article class="media content-section">
+    <div class="media-body">
+        <div class="article-metadata">
+        <a>From: {{ email.sender }}</a>
+        <small class="text-muted">{{ email.date_received }}</small>
+        <h2 class="article-title">{{ email.subject }}</h2>
+        {% if email.body_is_html %}
+          {{ email.body|safe}}
+        {% else %}
+          <p class="article-content">{{ email.body }}</p>
+        {% endif %}
+    </div>
+</article>
+<div class="border-top pt-3">
+  <small class="text-muted">
+    <a class="ml-2" href="{{ url_for('account') }}"> Back to Account</a>
+  </small>
+</div>
+{% endblock %}
