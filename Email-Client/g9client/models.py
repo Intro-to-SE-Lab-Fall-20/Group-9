@@ -26,6 +26,7 @@ class Emails(db.Model):
     date_received = db.Column(db.Text, nullable=False)
     body = db.Column(db.Text)
     body_is_html = db.Column(db.Boolean())
+    has_attachment = db.Column(db.Boolean())
 
     def __repr__(self):
         return f"Email('{self.user}', '{self.sender}', '{self.subject}', '{self.date_received}')"

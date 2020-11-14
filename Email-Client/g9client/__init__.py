@@ -4,7 +4,7 @@ from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
 import os
 
-app = Flask(__name__, template_folder="Templates")
+app = Flask(__name__)
 app.config['SECRET_KEY'] = '3aa2d13bfb8f6e6f8abbede0569bbf33'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
 app.config['UPLOAD_FOLDER'] = os.getcwd()

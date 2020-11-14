@@ -26,6 +26,7 @@ def syncMail(username, password, imap_server):
     N = int(messages[0])
 
     for i in range(N, 0, -1):
+        has_attachment = False # Default to false
         # fetch the email message by ID
         res, msg = imap.fetch(str(i), "(RFC822)")
         for response in msg:
@@ -87,7 +88,8 @@ def syncMail(username, password, imap_server):
                         subject = subject,
                         date_received = date,
                         body = body,
-                        body_is_html = body_is_html
+                        body_is_html = body_is_html,
+                        has_attachment = has_attachment
                     )
 
                     db.session.add(email)
