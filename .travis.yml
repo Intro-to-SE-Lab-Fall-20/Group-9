@@ -2,6 +2,8 @@ language: python
 python: "3.6"   
 services:
   - xvfb
+addons:
+  chrome: stable
 before_install: 
   - pip install -U pytest
   - wget -N https://chromedriver.storage.googleapis.com/87.0.4280.20/chromedriver_linux64.zip -P ~/
@@ -11,10 +13,7 @@ before_install:
   - sudo chmod +x /usr/local/share/chromedriver
 install: 
   - pip install -r requirements.txt
-before_script:
-  - export DISPLAY=99:0
 script: 
   - python -m py_compile Email-Client/run.py
   - python Email-Client/test-launch-client.py
-addons:
-  chrome: stable
+
