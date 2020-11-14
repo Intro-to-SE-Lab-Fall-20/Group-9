@@ -7,6 +7,8 @@ before_install:
   - mkdir geckodriver
   - tar -xzf geckodriver-v0.11.1-linux64.tar.gz -C geckodriver
   - export PATH=$PATH:$PWD/geckodriver
+  - sudo rm -rf /dev/shm
+  - sudo ln -s /run/shm /dev/shm
 install: 
   - pip install -r requirements.txt
 script: 
