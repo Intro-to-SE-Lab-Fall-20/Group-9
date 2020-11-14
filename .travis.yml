@@ -2,7 +2,6 @@ language: python
 python: "3.6"   
 before_install: 
   - pip install -U pytest
-  - google-chrome-stable --headless --disable-gpu --remote-debugging-port=8080 http://localhost &
   - wget -N https://chromedriver.storage.googleapis.com/87.0.4280.20/chromedriver_linux64.zip -P ~/
   - unzip ~/chromedriver_linux64.zip -d ~/
   - rm ~/chromedriver_linux64.zip
