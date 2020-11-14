@@ -1,17 +1,29 @@
+import time
 from selenium import webdriver
-from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support.expected_conditions import presence_of_element_located
+from multiprocessing import Process
+import sys
 
-# wait = WebDriverWait(driver, 10)
+sys.path.append("Group-9/Email-Client")
 
-with webdriver.Firefox() as driver:
-    driver.get("http://google.com/ncr")
-    driver.find_element_by_name("q").send_keys("cheese" + Keys.RETURN)
+from g9client import app
 
-    wait.until(presence_of_element_located((By.CSS_SELECTOR, "h3>a")))
+server = Process(
+    target=app.run,
+    kwargs = {
+        "host":"127.0.0.1",
+        "port":8080,
+        "debug":False
+    }
+)
+server.start()
 
-    results = driver.find_elements_by_css_selector("h3>a")
-    for i, result in results.iteritems():
-        print("#{}: {} ({})".format(i, result.text, result.get_property("href")))
+# selenium part
+driver = webdriver.Chrome()
+
+driver.get('http://127.0.0.1:8080/');
+time.sleep(1)
+
+driver.quit() # Close the webdriver
+
+server.terminate() # Terminate the flask app
+server.join()
