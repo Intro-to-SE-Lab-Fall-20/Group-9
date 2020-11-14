@@ -10,7 +10,7 @@ install:
   - pip install -r requirements.txt
 script: 
   - python -m py_compile Email-Client/run.py
-  - python Test-Scripts/simple-example.py
+  - python Email-Client/test-launch-client.py
 env:
   global:
     - MOZ_HEADLESS=1
