@@ -1,5 +1,7 @@
 language: python
 python: "3.6"   
+services:
+  - xvfb
 before_install: 
   - pip install -U pytest
   - wget -N https://chromedriver.storage.googleapis.com/87.0.4280.20/chromedriver_linux64.zip -P ~/
@@ -7,11 +9,10 @@ before_install:
   - rm ~/chromedriver_linux64.zip
   - sudo mv -f ~/chromedriver /usr/local/share/
   - sudo chmod +x /usr/local/share/chromedriver
-  - export DISPLAY=99:0
-  - sh -e /etc/init.d/xvfb start
-  - sleep 3
 install: 
   - pip install -r requirements.txt
+before_script:
+  - export DISPLAY=99:0
 script: 
   - python -m py_compile Email-Client/run.py
   - python Email-Client/test-launch-client.py
