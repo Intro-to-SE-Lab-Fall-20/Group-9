@@ -25,6 +25,9 @@ time.sleep(3) # Give time for server to start
 # selenium part
 driver = webdriver.Chrome("/usr/local/share/chromedriver")
 
+driver.get('http://127.0.0.1:8080/')
+time.sleep(1)
+
 driver.find_element_by_id("register_link").click()
 time.sleep(1)
 
